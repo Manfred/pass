@@ -1,0 +1,10 @@
+process do |path, flags|
+  case path
+  when %r{.html\Z}
+    watcher.execute "ruby pass.rb"
+  when %r{.rb\Z}
+    watcher.execute "ruby #{path}"
+  when %r{.c\Z}
+    watcher.execute "clang -O3 #{path} -o #{File.basename(path, '.c')}"
+  end
+end
